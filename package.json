@@ -1,0 +1,24 @@
+{
+  "name": "es6-webpack-babel",
+  "version": "1.0.0",
+  "description": "this is study of es6-webpack-babel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TerenYeung/es6-webpack-babel.git"
+  },
+  "keywords": [
+    "es6",
+    "webpack",
+    "babel"
+  ],
+  "author": "terenyeung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TerenYeung/es6-webpack-babel/issues"
+  },
+  "homepage": "https://github.com/TerenYeung/es6-webpack-babel#readme"
+}
