@@ -65,4 +65,112 @@ Loaders in webpack transform these files into modules as they are added to your 
 
 Loaders的作用就是将所有的文件(html,css,scss,png,jpg)等转换为js模块，以至添加进依赖树，因为webpack只能识别js
 
+loaders通常包含两个属性去转换静态资源为js模块
+
+test属性：识别文件类型
+use属性：采用特定的loader
+
+```
+const path = require('path');
+
+const config = {
+  entry: './path/to/my/entry/file.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'my-first-webpack.bundle.js'
+  },
+  module: {
+    rules: [
+      {test: /\.(js|jsx)$/, use: 'babel-loader'}
+    ]
+  }
+};
+
+module.exports = config;
+```
+[more](https://webpack.js.org/concepts/loaders/)
+
+- Plugins
+
+loaders只是将各种静态文件转换为js模块，plugins允许为打包模块提供额外的处理
+
+---
+
+## 1.2 deep learning to webpack
+
+### entry
+
+```
+module.exports = {
+	entry: ''
+}
+```
+
+### output 
+
+Options affecting the output of the compilation. output options tell webpack how to write the compiled files to disk
+
+```
+const config = {
+  output: {
+    filename: 'bundle.js',
+    path: '/home/proj/public/assets'
+  }
+};
+
+module.exports = config;
+```
+
+### loaders
+
+loaders preprocess files as you require() or “load” them.
+
+Loaders can transform files from a different language (like TypeScript) to JavaScript, or inline images as data URLs. 
+
+static file : 
+
+	- img
+	- css/less/sass/scss/stylus
+	- html/ejs
+	- js/jsx/ts
+
+
+```js
+
+$ npm install css-loader -D
+$ npm install ts-loader -D
+
+module.exports = {
+	module: {
+		rules: [
+			{
+				test: '/\.css$/',
+				use: [
+					{
+						loader: 'style-loader',
+					},{
+						loader: 'css-loader',
+						options: {
+							modules: true
+						}
+					}
+				]
+			},
+			{
+				test: '/\.ts$/',
+				use: 'ts-loader'
+			}
+		]
+	}
+}
+
+```
+
+```
+require('style-loader!css-loader?modules!./styles.css');
+
+Loaders accept query parameters. This can be used to pass configuration to the loader.
+```
+
+### plugins
 
