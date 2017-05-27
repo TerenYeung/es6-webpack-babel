@@ -174,3 +174,45 @@ Loaders accept query parameters. This can be used to pass configuration to the l
 
 ### plugins
 
+### modules
+
+webpack可以解析以下几种方式引入的模块，使的打包后的文件可以在浏览器环境下运行
+
+webpack supports modules written in a variety of languages and preprocessors, via loaders
+
+An ES2015 import statement
+A CommonJS require() statement
+An AMD define and require statement
+An @import statement inside of a css/sass/less file.
+An image url in a stylesheet (url(...)) or html`` (<img src=...>)``file.
+
+### module resolver
+
+The resolver helps webpack find the module code that needs to be included in the bundle for every such require/import statement.
+
+---
+
+## code spliting 
+
+- css
+
+处于异步并行加载css以防止页面出现白屏，可将css文件单独打包出来
+
+- library
+
+框架和工具库一般不会频繁发生改变，而应用代码本身经常改变；
+
+浏览器会根据缓存头来缓存资源文件，如果文件没有被改变，文件将会被缓存从而不用去再次请求 cdn。为了利用这一特性，我们希望不管应用本身的代码如何改变，vendor 文件的 hash 始终恒定不变；
+
+把 vendor 和应用代码的 bundle 分离时，才能实现这一点
+
+CommonsChunkPlugin
+
+允许我们从不同的 bundle 中提取所有的公共模块，并且将他们加入公共 bundle 中。如果公共 bundle 不存在，那么它将会创建一个出来
+
+
+
+
+
+
+
