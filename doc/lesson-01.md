@@ -13,15 +13,15 @@ using module bundler of webpack and applying for javascript interpretor of babel
 - module bundler
 
  recursively builds a dependency graph that includes every module your application needs
- 
+
  then packages all of those modules into a small number of bundles - often only one
- 
+
  to be loaded by the browser.
 
  - 解析主入口程序所依赖的模块成依赖树
  - 将所有依赖的模块打包成很少几个文件甚至是一个文件
  - 这个文件可以直接在浏览求中运行
- -  webpack treats every file (.css, .html, .scss, .jpg, etc.) as a module. 
+ -  webpack treats every file (.css, .html, .scss, .jpg, etc.) as a module.
  - webpack only understands JavaScript.
 
 
@@ -106,7 +106,7 @@ module.exports = {
 }
 ```
 
-### output 
+### output
 
 Options affecting the output of the compilation. output options tell webpack how to write the compiled files to disk
 
@@ -125,9 +125,9 @@ module.exports = config;
 
 loaders preprocess files as you require() or “load” them.
 
-Loaders can transform files from a different language (like TypeScript) to JavaScript, or inline images as data URLs. 
+Loaders can transform files from a different language (like TypeScript) to JavaScript, or inline images as data URLs.
 
-static file : 
+static file :
 
 	- img
 	- css/less/sass/scss/stylus
@@ -192,7 +192,7 @@ The resolver helps webpack find the module code that needs to be included in the
 
 ---
 
-## code spliting 
+## code spliting
 
 - css
 
@@ -209,6 +209,20 @@ The resolver helps webpack find the module code that needs to be included in the
 CommonsChunkPlugin
 
 允许我们从不同的 bundle 中提取所有的公共模块，并且将他们加入公共 bundle 中。如果公共 bundle 不存在，那么它将会创建一个出来
+
+### 异步下载chunk
+
+- 动态引入
+
+ES2015 loader 规范定义了 import() 作为一种在运行时(runtime)动态载入 ES2015 模块的方法。
+
+ - import()作为一个分离点
+ - 将引入模块作为一个单独的chunk
+ - 返回一个Promise对象
+
+ ### 生产环境构建
+
+
 
 
 
