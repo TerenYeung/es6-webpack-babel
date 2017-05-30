@@ -11,15 +11,44 @@ const config = {
   // devtool: 'cheap-source-map',
   devtool: 'inline-source-map',
 	watch: true,
+  watchOptions: {
+    aggregateTmeout: 300,
+    poll: 1000,
+    ignored: /node_modules/
+  },
+  node: {
+    console: false,
+    global: true,
+    process: true,
+    __filename: true,
+    __dirname: "mock",
+    Buffer: true,
+    setImmediate: true
+  },
+  performance: {
+    hints: "warning",
+    maxEntrypointSize: 656000,
+    maxAssetSize: 256000
+  },
+  // stats: 'minimal',
   entry: path.resolve(__dirname, './src/js/main.js'),
 	output: {
 		filename: '[name].[chunkhash].js',
-		path: path.resolve(__dirname, 'dist')
+		path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
 	},
 	module: {
 	   rules: [{
 			test: /\.(js|jsx)$/,
-			loader: 'babel-loader'
+      exclude: /(node_modules)/,
+			// loader: 'babel-loader'
+      use: [{
+        loader: 'babel-loader',
+        options: {
+          presets: [['es2015', {modules: false}]],
+          plugins: ['syntax-dynamic-import']
+        }
+      }]
 		}, {
 			test: /\.css$/,
 			// use: ['style-loader', 'css-loader']
@@ -39,8 +68,17 @@ const config = {
 			template: './src/index.html'
 		}),
 		new ExtractTextPlugin('style.css'),
-    
-	]
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
+	],
+  resolve: {
+    extensions: [".js", ".json", ".css"],
+    alias: {
+      style: path.resolve(__dirname, 'src/css/style.css')
+    }
+  }
 };
 
 module.exports = config;

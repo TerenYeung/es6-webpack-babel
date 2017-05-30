@@ -2,24 +2,38 @@
  * @Author: terenyeung 
  * @Date: 2017-05-26 23:47:42 
  * @Last Modified by: terenyeung
- * @Last Modified time: 2017-05-30 20:27:53
+ * @Last Modified time: 2017-05-30 22:35:00
  */
 
-import '../css/style.css'
+// import 'style'
+
+import '../css/style'
 import '../img/totoro copy.jpg'
-import moment from "moment"
-import _ from 'lodash'
+// import moment from "moment"
+// import _ from 'lodash'
 
-// function determineDate() {
-//   console.log(Date.now())
-//  }
+function determineDate() {
+  import('moment')
+    .then(moment => moment().format('LLLL'))
+    .then(str => console.log(str))
+    .catch(err => console.log('Failed to load moment', err));
+}
 
-// determineDate()
+determineDate();
+
+import('lodash').then(lodash => {
+  let _ = lodash
+  console.log(_)
+})
+
+$('body').html('Hello world')
+
 process.env.NODE_ENV = 'production'
 console.log(process.env.NODE_ENV)
-
-console.log(moment)
-console.log(_)
+console.log(__dirname)
+console.log(__filename)
 console.log(12312)
-console.log(456)
-console.log('hello world hello teren xx')
+console.log(123123211)
+global.name = 'teren'
+console.log(1231)
+console.log(global)

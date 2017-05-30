@@ -222,7 +222,24 @@ ES2015 loader 规范定义了 import() 作为一种在运行时(runtime)动态�
 
  ### 生产环境构建
 
+ ### polyfill && shim
 
+ A shim is a library that brings a new API to an older environment, using only the means of that environment.
+ A polyfill is a shim for a browser API. It typically checks if a browser supports an API. If it doesn’t, the polyfill installs its own implementation. That allows you to use the API in either case. The term polyfill comes from a home improvement product; according to Remy Sharp
+
+---
+
+### webpack.config.js
+
+```js
+module.exports = {
+	// 入口
+	entry: ""
+
+	
+}
+
+```
 
 
 
