@@ -2,15 +2,17 @@
  * @Author: terenyeung 
  * @Date: 2017-05-26 23:47:42 
  * @Last Modified by: terenyeung
- * @Last Modified time: 2017-05-30 22:35:00
+ * @Last Modified time: 2017-06-01 23:13:54
  */
 
 // import 'style'
 
 import '../css/style'
 import '../img/totoro copy.jpg'
+import header from 'header'
 // import moment from "moment"
 // import _ from 'lodash'
+
 
 function determineDate() {
   import('moment')
@@ -37,3 +39,4 @@ console.log(123123211)
 global.name = 'teren'
 console.log(1231)
 console.log(global)
+console.log(PRODUCTION)

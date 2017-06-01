@@ -9,7 +9,9 @@ const config = {
   // devtool: 'source-map',
   // devtool: 'nosources-source-map',
   // devtool: 'cheap-source-map',
-  devtool: 'inline-source-map',
+  target: 'web',
+ 
+  devtool: 'source-map',
 	watch: true,
   watchOptions: {
     aggregateTmeout: 300,
@@ -31,14 +33,22 @@ const config = {
     maxAssetSize: 256000
   },
   // stats: 'minimal',
-  entry: path.resolve(__dirname, './src/js/main.js'),
+  entry: {
+    main: path.resolve(__dirname, './src/js/main.js'),
+     vendors: ["moment", "lodash"]
+  },
 	output: {
-		filename: '[name].[chunkhash].js',
+		filename: '[name].js',
 		path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    // publicPath: '/',
+    chunkFilename: '[name].js',
+    crossOriginLoading: 'use-credentials',
+    // pathinfo: true,
 	},
+
 	module: {
-	   rules: [{
+    noParse: /jquery | lodash /,
+    rules: [{
 			test: /\.(js|jsx)$/,
       exclude: /(node_modules)/,
 			// loader: 'babel-loader'
@@ -67,19 +77,72 @@ const config = {
 		new HtmlWebpackPlugin({
 			template: './src/index.html'
 		}),
-		new ExtractTextPlugin('style.css'),
+		new ExtractTextPlugin({
+      filename: 'style.css',
+      allChunks: true
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendors', 'manifest'],
+      // children: true,
+    }),
+    new webpack.BannerPlugin({
+      banner: "hash:[hash], chunkhash:[chunkhash], name:[name], filebase:[filebase], query:[query], file:[file]",
+      entryOnly: true,
+    }),
+    new webpack.DefinePlugin({
+      PRODUCTION: JSON.stringify(true)
     })
 	],
   resolve: {
     extensions: [".js", ".json", ".css"],
     alias: {
-      style: path.resolve(__dirname, 'src/css/style.css')
+      style: path.resolve(__dirname, 'src/css/style.css'),
+      header: path.resolve(__dirname, 'src/js/components/header.js')
     }
+  },
+  devServer: {
+    // publicPath: "/public/",
+    // progress: true,
+    port: 8888,
+    compress: true,
+    // https: true
   }
 };
+
+// const config = {
+//   entry: {
+//     posts: './src/js/multi/posts.js',
+//     about: './src/js/multi/about.js'
+//   },
+//   output: {
+//     filename: "[name].js",
+//     chunkFilename: "[id].js",
+//     path: path.resolve(__dirname, './dist/multi'),
+//   },
+//   module: {
+//     rules: [
+//       {
+// 			test: /\.css$/,
+// 			// use: ['style-loader', 'css-loader']
+// 			use: ExtractTextPlugin.extract({
+//         fallback: 'style-loader',
+// 				use: 'css-loader'
+// 			})
+//       }
+//     ]
+//   },
+//   plugins: [
+//     new ExtractTextPlugin({
+//       filename: 'style.[hash:5].css',
+//       allChunks: true,
+//       disable: false
+//     })
+//   ]
+// }
 
 module.exports = config;
 
