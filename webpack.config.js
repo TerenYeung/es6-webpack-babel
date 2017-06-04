@@ -49,26 +49,57 @@ const config = {
 	module: {
     noParse: /jquery | lodash /,
     rules: [{
+			test: /\.txt$/,
+			use: ['raw-loader']
+		},{
+			test: /\.md$/,
+			use: ['html-loader', 'markdown-loader']
+		},{
 			test: /\.(js|jsx)$/,
-      exclude: /(node_modules)/,
+      exclude: /(node_modules | bower_components)/,
 			// loader: 'babel-loader'
       use: [{
         loader: 'babel-loader',
         options: {
-          presets: [['es2015', {modules: false}]],
-          plugins: ['syntax-dynamic-import']
+          presets: [['es2015', {modules: false}], 'env', 'react'],
+          plugins: ['syntax-dynamic-import', 'transform-object-rest-spread']
         }
       }]
 		}, {
 			test: /\.css$/,
 			// use: ['style-loader', 'css-loader']
 			use: ExtractTextPlugin.extract({
-				use: 'css-loader'
+				use: [{
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true,
+              minimize: true,
+              localIndentName: '[local]--[hash:base64:7]'
+            }
+          }, /*{
+           loader: 'import-glob-loader'
+          }*/]
+			})
+		},{
+			test: /\.scss$/,
+			// use: ['style-loader', 'css-loader']
+			use: ExtractTextPlugin.extract({
+				use: ['css-loader', {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true
+          }
+        },
+          // 'import-glob-loader'
+        ]
 			})
 		},{
           test: /\.(png|jpg|jpeg|gif|woff|woff2|ttf|eot|svg|swf)$/,
           use: [
-            'file-loader'
+            'url-loader?limit=10000',
+            // 'file-loader?name=[name].[hash:5].[ext]'
+            // 'file-loader?name=[name].[sha1:hash:base64:7].[ext]',
           ]
         }]
 	},

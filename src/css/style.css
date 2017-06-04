@@ -1,4 +1,6 @@
 @import './header/header.css';
+@import './test.scss';
+@import './test/*';
 body {
   background: #eee;
   font-size: 15px;

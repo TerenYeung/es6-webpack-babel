@@ -26,4 +26,6 @@ $ npm install --save-dev extract-text-webpack-plugin
 DefinePlugin 允许创建一个在编译时可以配置的全局常量
 [DDFE](http://chuansong.me/n/1428502651432)
 
+[DllPlugin](http://engineering.invisionapp.com/post/optimizing-webpack/)
 
+[webpack tutorial](https://survivejs.com/webpack/introduction/)

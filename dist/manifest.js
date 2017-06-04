@@ -1,4 +1,4 @@
-/*! hash:b3e35b4cd3abb41ad116, chunkhash:af274d1a4ddeca392346, name:manifest, filebase:manifest.js, query:, file:manifest.js */
+/*! hash:17d2c178774b99d14f92, chunkhash:0e656a5375d7bdc3184d, name:manifest, filebase:manifest.js, query:, file:manifest.js */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	var parentJsonpFunction = window["webpackJsonp"];
@@ -92,7 +92,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + ({"0":"vendors","1":"main"}[chunkId]||chunkId) + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + ({"0":"main","1":"vendors"}[chunkId]||chunkId) + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
