@@ -1,0 +1,23 @@
+{
+  "name": "es6-babel-webpack-study",
+  "version": "1.0.0",
+  "description": "this is the lession of es6",
+  "main": "index.js",
+  "scripts": {
+    "dev": "anywhere -p 8888"
+  },
+  "author": "teren",
+  "license": "MIT",
+  "dependencies": {
+    "anywhere": "^1.4.0",
+    "babel-polyfill": "^6.23.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.5.2",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}
