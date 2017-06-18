@@ -1,14 +1,30 @@
 const path = require('path')
-const webpack = require('webpack')
-const resolve = require('./config/resolve')
+
+const constants = require('./build/constans')
+
+// webpack config file
+const loaders = require('./build/loaders')
+const {plugins}= require('./build/plugins')
+const resolve = require('./build/resolve')
 
 module.exports = {
-  watch: true,
-  devtool: 'srouce-map',
+  watch: process.env.NODE_ENV != constants.ENV_PROD,
+  devtool: 'source-map',
   entry: () => './src/main.js',
   output: {
-    filename: '[name].[chunkhash].js',
+    // filename: '[name].[chunkhash:5].js',
+    filename: '[name].js',
     path: path.resolve(__dirname, './dist/')
   },
-  resolve,  
+  devServer:{
+    host: '127.0.0.1',
+    port: 8888,
+    watch: true,
+    devtool: 'source-map',
+    progress: true,
+    hot: true
+  },
+  module: loaders,
+  plugins,
+  resolve,
 }

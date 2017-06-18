@@ -4,13 +4,17 @@
   "description": "this is the lession of es6",
   "main": "index.js",
   "scripts": {
-    "dev": "anywhere -p 8888"
+    "server": "anywhere -p 8888",
+    "dev": "webpack",
+    "es6": "babel -w src -d lib",
+    "build": "NODE_ENV=PROD webpack"
   },
   "author": "teren",
   "license": "MIT",
   "dependencies": {
     "anywhere": "^1.4.0",
-    "babel-polyfill": "^6.23.0"
+    "babel-polyfill": "^6.23.0",
+    "html-webpack-plugin": "^2.28.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
