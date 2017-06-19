@@ -41,17 +41,17 @@ import {print} from '../util'
 // print(language.log)
 
 // 对象的遍历
-let obj3 = {
-  name: 'teren',
-  age: 18,
-  height: 180,
-  weigth: '60kg'
-}
+// let obj3 = {
+//   name: 'teren',
+//   age: 18,
+//   height: 180,
+//   weigth: '60kg'
+// }
 
 // for(var key in obj3) {
 //   print(`${key} --${obj3[key]}`)
 // }
 
-print(Object.keys(obj3))
+// print(Object.keys(obj3))
 
-print(Object.getOwnPropertyNames(obj3))
+// print(Object.getOwnPropertyNames(obj3))

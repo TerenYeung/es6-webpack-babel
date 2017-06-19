@@ -3,7 +3,8 @@ import 'const-let'
 import 'destructure'
 import 'array'
 import 'object'
-
+import 'symbol'
+import 'promise'
 
 
 

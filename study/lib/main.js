@@ -9,3 +9,7 @@ require('destructure');
 require('array');
 
 require('object');
+
+require('symbol');
+
+require('promise');
