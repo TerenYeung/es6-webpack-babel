@@ -29,4 +29,5 @@ var obj = _defineProperty({}, sym3, 'Hello');
 var sym4 = Symbol.for('foo');
 var sym5 = Symbol.for('foo'
 // log(sym4 === sym5)
-);log(Symbol.keyFor(sym4));
+// log(Symbol.keyFor(sym4))
+);

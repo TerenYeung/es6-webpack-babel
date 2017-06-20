@@ -26,4 +26,4 @@ const obj = {
 const sym4 = Symbol.for('foo')
 const sym5 = Symbol.for('foo')
 // log(sym4 === sym5)
-log(Symbol.keyFor(sym4))
+// log(Symbol.keyFor(sym4))
