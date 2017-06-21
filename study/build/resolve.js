@@ -8,5 +8,6 @@ module.exports = {
     'object': resolve(__dirname, '../src/Object'),
     'symbol': resolve(__dirname, '../src/Symbol'),
     'promise': resolve(__dirname, '../src/Promise'),
+    'iterator': resolve(__dirname, '../src/Iterator'),
   }
 }

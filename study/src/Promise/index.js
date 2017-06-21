@@ -139,18 +139,18 @@ const {log} = console
 
 // 事件循环与Promise
 
-let p6 = new Promise((resolve, reject)=>{
-  log('starting...')
-  resolve('resolved')
-})
+// let p6 = new Promise((resolve, reject)=>{
+//   log('starting...')
+//   resolve('resolved')
+// })
 
-p6.then(val=>log(val))
+// p6.then(val=>log(val))
 
-Promise.resolve('where I am ?').then(val=>log(val))
+// Promise.resolve('where I am ?').then(val=>log(val))
 
-log('I am here')
+// log('I am here')
 
-setTimeout(log, 0, 'next tick')
+// setTimeout(log, 0, 'next tick')
 
 // 1. p6里面的代码立即执行 'starting'
 // 2. p6.then指定的回调等到所有同步任务执行完后才执行 'I am here'

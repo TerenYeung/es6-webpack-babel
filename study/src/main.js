@@ -5,6 +5,7 @@ import 'array'
 import 'object'
 import 'symbol'
 import 'promise'
+import 'iterator'
 
 
 

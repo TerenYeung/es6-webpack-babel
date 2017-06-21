@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _console = console,
     log = _console.log;
@@ -141,26 +141,21 @@ var _console = console,
 
 // 事件循环与Promise
 
-var p6 = new Promise(function (resolve, reject) {
-  log('starting...');
-  resolve('resolved');
-});
+// let p6 = new Promise((resolve, reject)=>{
+//   log('starting...')
+//   resolve('resolved')
+// })
 
-p6.then(function (val) {
-  return log(val);
-});
+// p6.then(val=>log(val))
 
-Promise.resolve('where I am ?').then(function (val) {
-  return log(val);
-});
+// Promise.resolve('where I am ?').then(val=>log(val))
 
-log('I am here');
+// log('I am here')
 
-setTimeout(log, 0, 'next tick'
+// setTimeout(log, 0, 'next tick')
 
 // 1. p6里面的代码立即执行 'starting'
 // 2. p6.then指定的回调等到所有同步任务执行完后才执行 'I am here'
 // 3. 执行p6.then的回调，'resolved'
 // 4. 执行Promise.resolve的回调，'where I am' ,注意立即Promise.resolve()是在本轮'事件循环'的结束开始
 // 5. setTimeout(fn, 0)在下一轮'事件循环'开始执行
-);
