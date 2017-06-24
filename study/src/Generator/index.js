@@ -4,6 +4,7 @@
 const {log} = console
 const fs = require('fs')
 const thunkify = require('thunkify')
+var co = require('co')
 // function* Gen() {
 //   yield 'hello'
 //   yield 'world'
@@ -280,7 +281,7 @@ const thunkify = require('thunkify')
 // co 模块是用于Generator函数自动执行的模块
 
 // co模块的使用
-// var co = require('co')
+
 // var Gen = function* (){
 //  var r1 = yield read('src/Generator/1.txt')
 //  log(r1.toString())
@@ -291,21 +292,21 @@ const thunkify = require('thunkify')
 // co(Gen).then(()=>log('Generator 函数执行完成'))
 
 // 基于Promise对象的自动执行器
-var read = function(filename) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filename, (err, data) =>{
-      if(err) return reject(err)
-      resolve(data)
-    })
-  })
-}
+// var read = function(filename) {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(filename, (err, data) =>{
+//       if(err) return reject(err)
+//       resolve(data)
+//     })
+//   })
+// }
 
-var Gen = function* (){
-  var r1 = yield read('src/Generator/1.txt')
-  log(r1.toString())
-  var r2 = yield read('src/Generator/2.txt')
-  log(r2.toString())
-}
+// var Gen = function* (){
+//   var r1 = yield read('src/Generator/1.txt')
+//   log(r1.toString())
+//   var r2 = yield read('src/Generator/2.txt')
+//   log(r2.toString())
+// }
 
 // var gen = Gen()
 
@@ -318,18 +319,37 @@ var Gen = function* (){
 //   })
 // 手动执行基于Promise的Generator实际就是为then方法层层添加回调
 
-function run(Gen) {
-  var gen = Gen()
-  
-  next()
+// function run(Gen) {
+//   var gen = Gen()
 
-  function next(data) {
-    var result = gen.next(data)
-    if (result.done) return result.value
-    result.value.then(data=>{
-      next(data)
-    })
-  }
+//   next()
+
+//   function next(data) {
+//     var result = gen.next(data)
+//     if (result.done) return result.value
+//     result.value.then(data=>{
+//       next(data)
+//     })
+//   }
+// }
+
+// run(Gen)
+
+var Gen = function* (){
+  var res = yield [
+    Promise.resolve(1),
+    Promise.resolve(2),
+  ]
+  log(res)
 }
 
-run(Gen)
+co(Gen)
+
+var Gen1 = function* (){
+  var res = yield {
+    1: Promise.resolve(1),
+    2: Promise.resolve(2),
+  }
+  log(res)
+}
+co(Gen1)

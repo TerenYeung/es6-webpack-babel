@@ -3358,7 +3358,8 @@ var _console = console,
     log = _console.log;
 
 var fs = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"fs\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-var thunkify = __webpack_require__(309
+var thunkify = __webpack_require__(309);
+var co = __webpack_require__(313
 // function* Gen() {
 //   yield 'hello'
 //   yield 'world'
@@ -3635,7 +3636,7 @@ var thunkify = __webpack_require__(309
 // co 模块是用于Generator函数自动执行的模块
 
 // co模块的使用
-// var co = require('co')
+
 // var Gen = function* (){
 //  var r1 = yield read('src/Generator/1.txt')
 //  log(r1.toString())
@@ -3646,43 +3647,21 @@ var thunkify = __webpack_require__(309
 // co(Gen).then(()=>log('Generator 函数执行完成'))
 
 // 基于Promise对象的自动执行器
-);var read = function read(filename) {
-  return new Promise(function (resolve, reject) {
-    fs.readFile(filename, function (err, data) {
-      if (err) return reject(err);
-      resolve(data);
-    });
-  });
-};
+// var read = function(filename) {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(filename, (err, data) =>{
+//       if(err) return reject(err)
+//       resolve(data)
+//     })
+//   })
+// }
 
-var Gen = regeneratorRuntime.mark(function Gen() {
-  var r1, r2;
-  return regeneratorRuntime.wrap(function Gen$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return read('src/Generator/1.txt');
-
-        case 2:
-          r1 = _context.sent;
-
-          log(r1.toString());
-          _context.next = 6;
-          return read('src/Generator/2.txt');
-
-        case 6:
-          r2 = _context.sent;
-
-          log(r2.toString());
-
-        case 8:
-        case 'end':
-          return _context.stop();
-      }
-    }
-  }, Gen, this);
-});
+// var Gen = function* (){
+//   var r1 = yield read('src/Generator/1.txt')
+//   log(r1.toString())
+//   var r2 = yield read('src/Generator/2.txt')
+//   log(r2.toString())
+// }
 
 // var gen = Gen()
 
@@ -3695,21 +3674,71 @@ var Gen = regeneratorRuntime.mark(function Gen() {
 //   })
 // 手动执行基于Promise的Generator实际就是为then方法层层添加回调
 
-function run(Gen) {
-  var gen = Gen();
+// function run(Gen) {
+//   var gen = Gen()
 
-  next();
+//   next()
 
-  function next(data) {
-    var result = gen.next(data);
-    if (result.done) return result.value;
-    result.value.then(function (data) {
-      next(data);
-    });
-  }
-}
+//   function next(data) {
+//     var result = gen.next(data)
+//     if (result.done) return result.value
+//     result.value.then(data=>{
+//       next(data)
+//     })
+//   }
+// }
 
-run(Gen);
+// run(Gen)
+
+);var Gen = regeneratorRuntime.mark(function Gen() {
+  var res;
+  return regeneratorRuntime.wrap(function Gen$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return [Promise.resolve(1), Promise.resolve(2)];
+
+        case 2:
+          res = _context.sent;
+
+          log(res);
+
+        case 4:
+        case 'end':
+          return _context.stop();
+      }
+    }
+  }, Gen, this);
+});
+
+co(Gen);
+
+var Gen1 = regeneratorRuntime.mark(function Gen1() {
+  var res;
+  return regeneratorRuntime.wrap(function Gen1$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return {
+            1: Promise.resolve(1),
+            2: Promise.resolve(2)
+          };
+
+        case 2:
+          res = _context2.sent;
+
+          log(res);
+
+        case 4:
+        case 'end':
+          return _context2.stop();
+      }
+    }
+  }, Gen1, this);
+});
+co(Gen1);
 
 /***/ }),
 /* 117 */
@@ -10391,6 +10420,249 @@ function hasOwnProperty(obj, prop) {
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60), __webpack_require__(307)))
+
+/***/ }),
+/* 313 */
+/***/ (function(module, exports) {
+
+
+/**
+ * slice() reference.
+ */
+
+var slice = Array.prototype.slice;
+
+/**
+ * Expose `co`.
+ */
+
+module.exports = co['default'] = co.co = co;
+
+/**
+ * Wrap the given generator `fn` into a
+ * function that returns a promise.
+ * This is a separate function so that
+ * every `co()` call doesn't create a new,
+ * unnecessary closure.
+ *
+ * @param {GeneratorFunction} fn
+ * @return {Function}
+ * @api public
+ */
+
+co.wrap = function (fn) {
+  createPromise.__generatorFunction__ = fn;
+  return createPromise;
+  function createPromise() {
+    return co.call(this, fn.apply(this, arguments));
+  }
+};
+
+/**
+ * Execute the generator function or a generator
+ * and return a promise.
+ *
+ * @param {Function} fn
+ * @return {Promise}
+ * @api public
+ */
+
+function co(gen) {
+  var ctx = this;
+  var args = slice.call(arguments, 1)
+
+  // we wrap everything in a promise to avoid promise chaining,
+  // which leads to memory leak errors.
+  // see https://github.com/tj/co/issues/180
+  return new Promise(function(resolve, reject) {
+    if (typeof gen === 'function') gen = gen.apply(ctx, args);
+    if (!gen || typeof gen.next !== 'function') return resolve(gen);
+
+    onFulfilled();
+
+    /**
+     * @param {Mixed} res
+     * @return {Promise}
+     * @api private
+     */
+
+    function onFulfilled(res) {
+      var ret;
+      try {
+        ret = gen.next(res);
+      } catch (e) {
+        return reject(e);
+      }
+      next(ret);
+    }
+
+    /**
+     * @param {Error} err
+     * @return {Promise}
+     * @api private
+     */
+
+    function onRejected(err) {
+      var ret;
+      try {
+        ret = gen.throw(err);
+      } catch (e) {
+        return reject(e);
+      }
+      next(ret);
+    }
+
+    /**
+     * Get the next value in the generator,
+     * return a promise.
+     *
+     * @param {Object} ret
+     * @return {Promise}
+     * @api private
+     */
+
+    function next(ret) {
+      if (ret.done) return resolve(ret.value);
+      var value = toPromise.call(ctx, ret.value);
+      if (value && isPromise(value)) return value.then(onFulfilled, onRejected);
+      return onRejected(new TypeError('You may only yield a function, promise, generator, array, or object, '
+        + 'but the following object was passed: "' + String(ret.value) + '"'));
+    }
+  });
+}
+
+/**
+ * Convert a `yield`ed value into a promise.
+ *
+ * @param {Mixed} obj
+ * @return {Promise}
+ * @api private
+ */
+
+function toPromise(obj) {
+  if (!obj) return obj;
+  if (isPromise(obj)) return obj;
+  if (isGeneratorFunction(obj) || isGenerator(obj)) return co.call(this, obj);
+  if ('function' == typeof obj) return thunkToPromise.call(this, obj);
+  if (Array.isArray(obj)) return arrayToPromise.call(this, obj);
+  if (isObject(obj)) return objectToPromise.call(this, obj);
+  return obj;
+}
+
+/**
+ * Convert a thunk to a promise.
+ *
+ * @param {Function}
+ * @return {Promise}
+ * @api private
+ */
+
+function thunkToPromise(fn) {
+  var ctx = this;
+  return new Promise(function (resolve, reject) {
+    fn.call(ctx, function (err, res) {
+      if (err) return reject(err);
+      if (arguments.length > 2) res = slice.call(arguments, 1);
+      resolve(res);
+    });
+  });
+}
+
+/**
+ * Convert an array of "yieldables" to a promise.
+ * Uses `Promise.all()` internally.
+ *
+ * @param {Array} obj
+ * @return {Promise}
+ * @api private
+ */
+
+function arrayToPromise(obj) {
+  return Promise.all(obj.map(toPromise, this));
+}
+
+/**
+ * Convert an object of "yieldables" to a promise.
+ * Uses `Promise.all()` internally.
+ *
+ * @param {Object} obj
+ * @return {Promise}
+ * @api private
+ */
+
+function objectToPromise(obj){
+  var results = new obj.constructor();
+  var keys = Object.keys(obj);
+  var promises = [];
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    var promise = toPromise.call(this, obj[key]);
+    if (promise && isPromise(promise)) defer(promise, key);
+    else results[key] = obj[key];
+  }
+  return Promise.all(promises).then(function () {
+    return results;
+  });
+
+  function defer(promise, key) {
+    // predefine the key in the result
+    results[key] = undefined;
+    promises.push(promise.then(function (res) {
+      results[key] = res;
+    }));
+  }
+}
+
+/**
+ * Check if `obj` is a promise.
+ *
+ * @param {Object} obj
+ * @return {Boolean}
+ * @api private
+ */
+
+function isPromise(obj) {
+  return 'function' == typeof obj.then;
+}
+
+/**
+ * Check if `obj` is a generator.
+ *
+ * @param {Mixed} obj
+ * @return {Boolean}
+ * @api private
+ */
+
+function isGenerator(obj) {
+  return 'function' == typeof obj.next && 'function' == typeof obj.throw;
+}
+
+/**
+ * Check if `obj` is a generator function.
+ *
+ * @param {Mixed} obj
+ * @return {Boolean}
+ * @api private
+ */
+function isGeneratorFunction(obj) {
+  var constructor = obj.constructor;
+  if (!constructor) return false;
+  if ('GeneratorFunction' === constructor.name || 'GeneratorFunction' === constructor.displayName) return true;
+  return isGenerator(constructor.prototype);
+}
+
+/**
+ * Check for plain object.
+ *
+ * @param {Mixed} val
+ * @return {Boolean}
+ * @api private
+ */
+
+function isObject(val) {
+  return Object == val.constructor;
+}
+
 
 /***/ })
 /******/ ]);

@@ -7,7 +7,8 @@ var _console = console,
     log = _console.log;
 
 var fs = require('fs');
-var thunkify = require('thunkify'
+var thunkify = require('thunkify');
+var co = require('co'
 // function* Gen() {
 //   yield 'hello'
 //   yield 'world'
@@ -284,7 +285,7 @@ var thunkify = require('thunkify'
 // co 模块是用于Generator函数自动执行的模块
 
 // co模块的使用
-// var co = require('co')
+
 // var Gen = function* (){
 //  var r1 = yield read('src/Generator/1.txt')
 //  log(r1.toString())
@@ -295,43 +296,21 @@ var thunkify = require('thunkify'
 // co(Gen).then(()=>log('Generator 函数执行完成'))
 
 // 基于Promise对象的自动执行器
-);var read = function read(filename) {
-  return new Promise(function (resolve, reject) {
-    fs.readFile(filename, function (err, data) {
-      if (err) return reject(err);
-      resolve(data);
-    });
-  });
-};
+// var read = function(filename) {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(filename, (err, data) =>{
+//       if(err) return reject(err)
+//       resolve(data)
+//     })
+//   })
+// }
 
-var Gen = regeneratorRuntime.mark(function Gen() {
-  var r1, r2;
-  return regeneratorRuntime.wrap(function Gen$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return read('src/Generator/1.txt');
-
-        case 2:
-          r1 = _context.sent;
-
-          log(r1.toString());
-          _context.next = 6;
-          return read('src/Generator/2.txt');
-
-        case 6:
-          r2 = _context.sent;
-
-          log(r2.toString());
-
-        case 8:
-        case 'end':
-          return _context.stop();
-      }
-    }
-  }, Gen, this);
-});
+// var Gen = function* (){
+//   var r1 = yield read('src/Generator/1.txt')
+//   log(r1.toString())
+//   var r2 = yield read('src/Generator/2.txt')
+//   log(r2.toString())
+// }
 
 // var gen = Gen()
 
@@ -344,18 +323,68 @@ var Gen = regeneratorRuntime.mark(function Gen() {
 //   })
 // 手动执行基于Promise的Generator实际就是为then方法层层添加回调
 
-function run(Gen) {
-  var gen = Gen();
+// function run(Gen) {
+//   var gen = Gen()
 
-  next();
+//   next()
 
-  function next(data) {
-    var result = gen.next(data);
-    if (result.done) return result.value;
-    result.value.then(function (data) {
-      next(data);
-    });
-  }
-}
+//   function next(data) {
+//     var result = gen.next(data)
+//     if (result.done) return result.value
+//     result.value.then(data=>{
+//       next(data)
+//     })
+//   }
+// }
 
-run(Gen);
+// run(Gen)
+
+);var Gen = regeneratorRuntime.mark(function Gen() {
+  var res;
+  return regeneratorRuntime.wrap(function Gen$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return [Promise.resolve(1), Promise.resolve(2)];
+
+        case 2:
+          res = _context.sent;
+
+          log(res);
+
+        case 4:
+        case 'end':
+          return _context.stop();
+      }
+    }
+  }, Gen, this);
+});
+
+co(Gen);
+
+var Gen1 = regeneratorRuntime.mark(function Gen1() {
+  var res;
+  return regeneratorRuntime.wrap(function Gen1$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.next = 2;
+          return {
+            1: Promise.resolve(1),
+            2: Promise.resolve(2)
+          };
+
+        case 2:
+          res = _context2.sent;
+
+          log(res);
+
+        case 4:
+        case 'end':
+          return _context2.stop();
+      }
+    }
+  }, Gen1, this);
+});
+co(Gen1);
