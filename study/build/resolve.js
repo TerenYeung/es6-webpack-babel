@@ -9,5 +9,6 @@ module.exports = {
     'symbol': resolve(__dirname, '../src/Symbol'),
     'promise': resolve(__dirname, '../src/Promise'),
     'iterator': resolve(__dirname, '../src/Iterator'),
+    'generator': resolve(__dirname, '../src/Generator'),
   }
 }

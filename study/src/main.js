@@ -6,6 +6,7 @@ import 'object'
 import 'symbol'
 import 'promise'
 import 'iterator'
+import 'generator'
 
 
 

@@ -15,3 +15,5 @@ require('symbol');
 require('promise');
 
 require('iterator');
+
+require('generator');

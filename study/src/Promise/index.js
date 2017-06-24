@@ -12,7 +12,7 @@ const {log} = console
 // 2. 状态机
 //  2.1 Pending
 //  2.2 Fufilled / Resolved
-//  2.3 Rejected 
+//  2.3 Rejected
 // 以上状态只能由异步操作的解构决定，
 // 一旦状态改变，就不会再变，任何时候都可得到这个解构
 
@@ -141,6 +141,7 @@ const {log} = console
 
 // let p6 = new Promise((resolve, reject)=>{
 //   log('starting...')
+
 //   resolve('resolved')
 // })
 

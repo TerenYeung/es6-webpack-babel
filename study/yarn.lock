@@ -2988,6 +2988,10 @@ tar@^2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
+thunkify@^2.1.2:
+  version "2.1.2"
+  resolved "http://registry.npm.taobao.org/thunkify/download/thunkify-2.1.2.tgz#faa0e9d230c51acc95ca13a361ac05ca7e04553d"
+
 timers-browserify@^2.0.2:
   version "2.0.2"
   resolved "http://registry.npm.taobao.org/timers-browserify/download/timers-browserify-2.0.2.tgz#ab4883cf597dcd50af211349a00fbca56ac86b86"
