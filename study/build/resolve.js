@@ -1,14 +1,27 @@
 const { resolve } = require('path')
+
+const dirList = [
+  'const-let',
+  'destructure',
+  'Array',
+  'Object',
+  'Symbol',
+  'Promise',
+  'Iterator',
+  'Generator',
+  'Async',
+  'Class'
+]
+
+const resolveDirList = () => {
+  let obj = {}
+  dirList.forEach(dir=>{
+    let path = resolve(__dirname, `../src/${dir}`)
+    obj[dir] = path
+  })
+  return obj
+}
+
 module.exports = {
-  alias: {
-    // script
-    'const-let': resolve(__dirname, '../src/const-let/'),
-    'destructure': resolve(__dirname, '../src/destructure'),
-    'array': resolve(__dirname, '../src/Array'),
-    'object': resolve(__dirname, '../src/Object'),
-    'symbol': resolve(__dirname, '../src/Symbol'),
-    'promise': resolve(__dirname, '../src/Promise'),
-    'iterator': resolve(__dirname, '../src/Iterator'),
-    'generator': resolve(__dirname, '../src/Generator'),
-  }
+  alias: resolveDirList()
 }

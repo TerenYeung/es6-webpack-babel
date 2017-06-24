@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /Users/terenyeung/.yarn/bin/yarn.js add co
+  /usr/local/bin/node /Users/terenyeung/.yarn/bin/yarn.js add babel-preset-stage-0 --dev
 
 PATH: 
   /Users/terenyeung/.pyenv/shims:/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/local/bin:/Users/terenyeung/.yarn/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/terenyeung/.pyenv/shims:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Users/terenyeung/.yarn/bin:/Applications/Postgres.app/Contents/Versions/9.6/bin:/Applications/Postgres.app/Contents/Versions/9.6/bin
@@ -30,6 +30,7 @@ npm manifest:
     "dependencies": {
       "anywhere": "^1.4.0",
       "babel-polyfill": "^6.23.0",
+      "co": "^4.6.0",
       "html-webpack-plugin": "^2.28.0",
       "thunkify": "^2.1.2"
     },
@@ -3369,5 +3370,5 @@ Lockfile:
       window-size "0.1.0"
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/terenyeung/Desktop/study/es6-webpack-babel/study/node_modules/.bin/anywhere'
+  Error: EACCES: permission denied, unlink '/Users/terenyeung/Desktop/study/es6-webpack-babel/study/node_modules/.bin/babel-doctor'
       at Error (native)

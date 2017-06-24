@@ -5,8 +5,8 @@
 // 执行Generator返回一个Iterator，即Generator还是一个遍历器对象生成函数
 var _console = console,
     log = _console.log;
+// const fs = require('fs')
 
-var fs = require('fs');
 var thunkify = require('thunkify');
 var co = require('co'
 // function* Gen() {
@@ -339,52 +339,22 @@ var co = require('co'
 
 // run(Gen)
 
-);var Gen = regeneratorRuntime.mark(function Gen() {
-  var res;
-  return regeneratorRuntime.wrap(function Gen$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return [Promise.resolve(1), Promise.resolve(2)];
+// var Gen = function* (){
+//   var res = yield [
+//     Promise.resolve(1),
+//     Promise.resolve(2),
+//   ]
+//   log(res)
+// }
 
-        case 2:
-          res = _context.sent;
+// co(Gen)
 
-          log(res);
-
-        case 4:
-        case 'end':
-          return _context.stop();
-      }
-    }
-  }, Gen, this);
-});
-
-co(Gen);
-
-var Gen1 = regeneratorRuntime.mark(function Gen1() {
-  var res;
-  return regeneratorRuntime.wrap(function Gen1$(_context2) {
-    while (1) {
-      switch (_context2.prev = _context2.next) {
-        case 0:
-          _context2.next = 2;
-          return {
-            1: Promise.resolve(1),
-            2: Promise.resolve(2)
-          };
-
-        case 2:
-          res = _context2.sent;
-
-          log(res);
-
-        case 4:
-        case 'end':
-          return _context2.stop();
-      }
-    }
-  }, Gen1, this);
-});
-co(Gen1);
+// var Gen1 = function* (){
+//   var res = yield {
+//     1: Promise.resolve(1),
+//     2: Promise.resolve(2),
+//   }
+//   log(res)
+// }
+// co(Gen1)
+);

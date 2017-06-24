@@ -1,12 +1,14 @@
 import 'babel-polyfill'
 import 'const-let'
 import 'destructure'
-import 'array'
-import 'object'
-import 'symbol'
-import 'promise'
-import 'iterator'
-import 'generator'
+import 'Array'
+import 'Object'
+import 'Symbol'
+import 'Promise'
+import 'Iterator'
+import 'Generator'
+import 'Async'
+import 'Class'
 
 
 

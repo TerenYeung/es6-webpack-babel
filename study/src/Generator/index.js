@@ -2,7 +2,7 @@
 
 // 执行Generator返回一个Iterator，即Generator还是一个遍历器对象生成函数
 const {log} = console
-const fs = require('fs')
+// const fs = require('fs')
 const thunkify = require('thunkify')
 var co = require('co')
 // function* Gen() {
@@ -335,21 +335,21 @@ var co = require('co')
 
 // run(Gen)
 
-var Gen = function* (){
-  var res = yield [
-    Promise.resolve(1),
-    Promise.resolve(2),
-  ]
-  log(res)
-}
+// var Gen = function* (){
+//   var res = yield [
+//     Promise.resolve(1),
+//     Promise.resolve(2),
+//   ]
+//   log(res)
+// }
 
-co(Gen)
+// co(Gen)
 
-var Gen1 = function* (){
-  var res = yield {
-    1: Promise.resolve(1),
-    2: Promise.resolve(2),
-  }
-  log(res)
-}
-co(Gen1)
+// var Gen1 = function* (){
+//   var res = yield {
+//     1: Promise.resolve(1),
+//     2: Promise.resolve(2),
+//   }
+//   log(res)
+// }
+// co(Gen1)

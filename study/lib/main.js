@@ -6,14 +6,18 @@ require('const-let');
 
 require('destructure');
 
-require('array');
+require('Array');
 
-require('object');
+require('Object');
 
-require('symbol');
+require('Symbol');
 
-require('promise');
+require('Promise');
 
-require('iterator');
+require('Iterator');
 
-require('generator');
+require('Generator');
+
+require('Async');
+
+require('Class');
