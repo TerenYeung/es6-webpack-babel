@@ -21,3 +21,5 @@ require('Generator');
 require('Async');
 
 require('Class');
+
+require('Decorator');

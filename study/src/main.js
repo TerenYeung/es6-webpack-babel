@@ -9,6 +9,4 @@ import 'Iterator'
 import 'Generator'
 import 'Async'
 import 'Class'
-
-
-
+import 'Decorator'

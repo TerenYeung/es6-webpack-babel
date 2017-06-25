@@ -10,7 +10,8 @@ const dirList = [
   'Iterator',
   'Generator',
   'Async',
-  'Class'
+  'Class',
+  'Decorator',
 ]
 
 const resolveDirList = () => {
